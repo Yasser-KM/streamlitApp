@@ -6,13 +6,13 @@ from plotly.subplots import make_subplots
 
 # Function to check if the visitor is using a mobile device
 def is_mobile():
-    user_agent = st.query_params.get("User-Agent", "")
+    user_agent = st.request.headers.get("User-Agent", "")
     return "Mobi" in user_agent  # 'Mobi' is common in mobile User-Agent strings
 
 # Function to add background only for non-mobile devices
 def add_bg_from_local(image_file):
-    '''Adds background image from local file.'''
-    if not is_mobile():
+    '''Adds background image from local file for non-mobile devices.'''
+    if not is_mobile():  # Only apply background if NOT on mobile
         with open(image_file, "rb") as image:
             encoded = base64.b64encode(image.read()).decode()
 
