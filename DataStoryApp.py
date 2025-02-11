@@ -12,8 +12,9 @@ def is_mobile():
 # Function to add background only for non-mobile devices
 def add_bg_from_local(image_file):
     '''Adds background image from local file.'''
-    with open(image_file, "rb") as image:
-        encoded = base64.b64encode(image.read()).decode()
+    if not is_mobile():
+        with open(image_file, "rb") as image:
+            encoded = base64.b64encode(image.read()).decode()
 
     st.markdown(
         f"""
