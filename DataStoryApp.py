@@ -52,7 +52,7 @@ if st.session_state.device_selected is None:
 
 # Apply background only if "Desktop View" is selected
 if st.session_state.device_selected == "desktop":
-    add_bg_from_local('logoDesktop.png')
+    add_bg_from_local('logo.png')
 
 # if st.session_state.device_selected == "phone":
 #    add_bg_from_local('logoPhone.png')
