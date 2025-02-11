@@ -30,13 +30,28 @@ def add_bg_from_local(image_file):
 # Set Page Configurations
 st.set_page_config(page_title="قصة البيانات", layout="wide")
 
-# Sidebar for display mode selection
-with st.sidebar:
-    st.header("🖥️ اختيار العرض")
-    display_mode = st.radio("اختر وضع العرض:", ["📱 عرض الهاتف", "💻 عرض الكمبيوتر"])
+# Ask user to select device type before showing content
+if "device_selected" not in st.session_state:
+    st.session_state.device_selected = None
+
+if st.session_state.device_selected is None:
+    st.title("📢 اختر نوع جهازك")
+    st.write("يرجى اختيار نوع الجهاز الذي تستخدمه لعرض البيانات بشكل مناسب.")
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        if st.button("📱 هاتف"):
+            st.session_state.device_selected = "phone"
+
+    with col2:
+        if st.button("💻 كمبيوتر"):
+            st.session_state.device_selected = "desktop"
+
+    st.stop()  # Stop execution until the user selects a device
 
 # Apply background only if "Desktop View" is selected
-if display_mode == "💻 عرض الكمبيوتر":
+if st.session_state.device_selected == "desktop":
     add_bg_from_local('logo.png')
 
 # Title and Subtitle
