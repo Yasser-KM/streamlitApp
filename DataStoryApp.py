@@ -50,7 +50,7 @@ st.header("📈 التصور البياني الأول")
 data = {
     "Year": ["2022", "2022", "2023", "2023", "2024", "2024", "2025", "2025"],
     "Gender": ["Male", "Female", "Male", "Female", "Male", "Female", "Male", "Female"],
-    "Count": [60, 40, 55, 45, 50, 50, 70, 30]  # Example percentages
+    "Count": [4113, 2136, 7240, 3883, 9686, 5611, 16547, 10961]  # Example percentages
 }
 
 df = pd.DataFrame(data)
