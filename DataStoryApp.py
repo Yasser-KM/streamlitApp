@@ -4,6 +4,23 @@ import base64
 import pandas as pd
 from plotly.subplots import make_subplots
 
+st.markdown(
+        f"""
+        <style>
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;700&display=swap');
+        .stApp {{
+            background-size: cover;
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+            text-align: right;
+        }}
+        h1, h2, h3, h4, h5, h6, p, div {{
+            font-family: 'IBM Plex Sans Arabic', sans-serif !important;
+        }}
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
 # Function to add background (only for Desktop View)
 def add_bg_from_local(image_file):
     '''Adds background image from local file.'''
