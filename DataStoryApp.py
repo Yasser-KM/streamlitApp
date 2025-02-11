@@ -57,15 +57,15 @@ df = pd.DataFrame(data)
 
 # Create a subplot figure with 1 row, 4 columns
 fig = make_subplots(
-    rows=1, cols=4,
+    rows=2, cols=2,
     subplot_titles=("توزيع الجنس - 2022", "توزيع الجنس - 2023", "توزيع الجنس - 2024", "توزيع الجنس - 2025"),
-    specs=[[{"type": "domain"}, {"type": "domain"}, {"type": "domain"}, {"type": "domain"}]]
+    specs=[[{"type": "domain"}, {"type": "domain"}], [{"type": "domain"}, {"type": "domain"}]]
 )
 
 # Add pie charts to each subplot
 for i, year in enumerate(["2022", "2023", "2024", "2025"]):
     pie_chart = px.pie(df[df["Year"] == year], names="Gender", values="Count")
-    fig.add_trace(pie_chart.data[0], row=1, col=i+1)
+    fig.add_trace(pie_chart.data[0], row=(i//2)+1, col=(i%2)+1)
 
 # Ensure only one legend for all charts
 for trace in fig.data:
