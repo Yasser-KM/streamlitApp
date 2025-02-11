@@ -5,7 +5,7 @@ import pandas as pd
 from plotly.subplots import make_subplots
 
 # Set Page Configurations
-st.set_page_config(page_title="ماراثون الرياض", layout="wide")
+st.set_page_config(page_title="ماراثون الرياض", layout="centered", )
 
 # Global CSS styling for the entire page
 st.markdown(
