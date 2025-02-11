@@ -1,3 +1,4 @@
-﻿streamlit
-plotly==5.10.0
+streamlit
+plotly>=5.15.0  # Ensures a stable version
 pandas
+numpy>=1.24.0   # Prevents np.bool8 errors
