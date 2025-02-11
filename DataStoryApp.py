@@ -28,51 +28,52 @@ def add_bg_from_local(image_file):
     )
 
 # Set Page Configurations
-st.set_page_config(page_title="قصة البيانات", layout="wide")
+st.set_page_config(page_title="ماراثون الرياض", layout="wide")
 
 # Ask user to select device type before showing content
 if "device_selected" not in st.session_state:
     st.session_state.device_selected = None
 
 if st.session_state.device_selected is None:
-    st.title("📢 اختر نوع جهازك")
-    st.write("يرجى اختيار نوع الجهاز الذي تستخدمه لعرض البيانات بشكل مناسب.")
+    st.title("👀من وين فاتح الصفحة؟")
+    st.write("لتجربة أفضل , أختر الجهاز الي فاتح به الصفحة")
 
     col1, col2 = st.columns(2)
 
     with col1:
-        if st.button("📱 هاتف"):
+        if st.button("📱 جوال"):
             st.session_state.device_selected = "phone"
 
     with col2:
-        if st.button("💻 كمبيوتر"):
+        if st.button("💻 لاب توب او ديسك توب"):
             st.session_state.device_selected = "desktop"
 
     st.stop()  # Stop execution until the user selects a device
 
 # Apply background only if "Desktop View" is selected
 if st.session_state.device_selected == "desktop":
-    add_bg_from_local('logo.png')
+    add_bg_from_local('logoDesktop.png')
+
+# if st.session_state.device_selected == "phone":
+#    add_bg_from_local('logoPhone.png')
 
 # Title and Subtitle
-st.title("📊 قصة البيانات")
-st.markdown("### سرد بصري باستخدام البيانات والمخططات")
+st.title("ماراثون الرياض 🏃‍♂️")
+st.markdown("### 🌍هل ماراثوننا عالمي؟")
 
-# Section 1: Overview
-st.header("📌 نظرة عامة")
-st.write("يوفر هذا القسم مقدمة إلى مجموعة البيانات والرؤى الرئيسية.")
+st.write(" شفنا هالسنه في ترويج كبير للماراثون ")
 
 # Section 2: First Chart
 st.header("📈 التصور البياني الأول")
 
 # Sample data for gender distribution over the years
-data = {
+GenderDist = {
     "Year": ["2022", "2022", "2023", "2023", "2024", "2024", "2025", "2025"],
     "Gender": ["Male", "Female", "Male", "Female", "Male", "Female", "Male", "Female"],
     "Count": [4113, 2136, 7240, 3883, 9686, 5611, 16547, 10961]
 }
 
-df = pd.DataFrame(data)
+GenderDis = pd.DataFrame(GenderDist)
 
 # Create a subplot figure with 2 rows, 2 columns
 fig = make_subplots(
@@ -83,7 +84,7 @@ fig = make_subplots(
 
 # Add pie charts
 for i, year in enumerate(["2022", "2023", "2024", "2025"]):
-    pie_chart = px.pie(df[df["Year"] == year], names="Gender", values="Count")
+    pie_chart = px.pie(GenderDis[GenderDis["Year"] == year], names="Gender", values="Count")
     fig.add_trace(pie_chart.data[0], row=(i//2)+1, col=(i%2)+1)
 
 # Ensure only one legend
@@ -103,8 +104,8 @@ fig.update_layout(
 st.plotly_chart(fig, use_container_width=True)
 
 # Conclusion
-st.header("📝 الخاتمة")
-st.write("قم بتلخيص النقاط الرئيسية والرؤى المستخلصة من قصة البيانات.")
+st.header("واخيراً")
+st.write("هل بتشارك في الماراثون الجاي؟")
 
 # Footer
 st.markdown("---")
