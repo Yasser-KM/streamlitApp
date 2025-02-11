@@ -4,22 +4,25 @@ import base64
 import pandas as pd
 from plotly.subplots import make_subplots
 
+# Set Page Configurations
+st.set_page_config(page_title="ماراثون الرياض", layout="wide")
+
+# Global CSS styling for the entire page
 st.markdown(
-        f"""
-        <style>
-        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;700&display=swap');
-        .stApp {{
-            background-size: cover;
-            font-family: 'IBM Plex Sans Arabic', sans-serif;
-            text-align: right;
-        }}
-        h1, h2, h3, h4, h5, h6, p, div {{
-            font-family: 'IBM Plex Sans Arabic', sans-serif !important;
-        }}
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
+    """
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;700&display=swap');
+    .stApp {
+        font-family: 'IBM Plex Sans Arabic', sans-serif;
+        text-align: right;
+    }
+    h1, h2, h3, h4, h5, h6, p, div {
+        font-family: 'IBM Plex Sans Arabic', sans-serif !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 # Function to add background (only for Desktop View)
 def add_bg_from_local(image_file):
@@ -29,23 +32,16 @@ def add_bg_from_local(image_file):
     st.markdown(
         f"""
         <style>
-        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;700&display=swap');
         .stApp {{
             background-image: url("data:image/png;base64,{encoded}");
             background-size: cover;
-            font-family: 'IBM Plex Sans Arabic', sans-serif;
-            text-align: right;
-        }}
-        h1, h2, h3, h4, h5, h6, p, div {{
-            font-family: 'IBM Plex Sans Arabic', sans-serif !important;
         }}
         </style>
         """,
         unsafe_allow_html=True
     )
 
-# Set Page Configurations
-st.set_page_config(page_title="ماراثون الرياض", layout="wide")
+
 
 # Ask user to select device type before showing content
 if "device_selected" not in st.session_state:
@@ -75,13 +71,13 @@ if st.session_state.device_selected == "desktop":
 #    add_bg_from_local('logoPhone.png')
 
 # Title and Subtitle
-st.title("ماراثون الرياض 🏃‍♂️")
+st.title("ماراثون الرياض")
 st.markdown("### 🌍هل ماراثوننا عالمي؟")
 
-st.write(" شفنا هالسنه في ترويج كبير للماراثون ")
+st.write("شفنا هالسنه في ترويج كبير للماراثون")
 
 # Section 2: First Chart
-st.header("📈 التصور البياني الأول")
+st.header("📈التصور البياني الأول")
 
 # Sample data for gender distribution over the years
 GenderDist = {
