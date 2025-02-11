@@ -1,11 +1,10 @@
 import streamlit as st
 import plotly.express as px
 import base64
-import plotly.io as pio
-import json
 import pandas as pd
 from plotly.subplots import make_subplots
 
+# Function to add background (always applied)
 def add_bg_from_local(image_file):
     '''Adds background image from local file.'''
     with open(image_file, "rb") as image:
@@ -29,10 +28,16 @@ def add_bg_from_local(image_file):
     )
 
 # Set Page Configurations
-st.set_page_config(page_title="قصة البيانات")
+st.set_page_config(page_title="قصة البيانات", layout="wide")  # 'wide' layout works better for desktop users
 
-# Add background image (replace 'logo.png' with your image file)
+# Add background image
 add_bg_from_local('logo.png')
+
+# Sidebar for navigation (can be collapsed)
+with st.sidebar:
+    st.header("🔍 خيارات العرض")
+    show_chart_1 = st.checkbox("عرض التصور البياني الأول", True)
+    show_chart_2 = st.checkbox("عرض التصور البياني الثاني", True)
 
 # Title and Subtitle
 st.title("📊 قصة البيانات")
@@ -42,47 +47,46 @@ st.markdown("### سرد بصري باستخدام البيانات والمخط�
 st.header("📌 نظرة عامة")
 st.write("يوفر هذا القسم مقدمة إلى مجموعة البيانات والرؤى الرئيسية.")
 
-# Section 2: First Chart
-st.header("📈 التصور البياني الأول")
+# Section 2: First Chart (Only if selected)
+if show_chart_1:
+    st.header("📈 التصور البياني الأول")
 
+    # Sample data for gender distribution over the years
+    data = {
+        "Year": ["2022", "2022", "2023", "2023", "2024", "2024", "2025", "2025"],
+        "Gender": ["Male", "Female", "Male", "Female", "Male", "Female", "Male", "Female"],
+        "Count": [4113, 2136, 7240, 3883, 9686, 5611, 16547, 10961]
+    }
 
-# Sample data for gender distribution over the years
-data = {
-    "Year": ["2022", "2022", "2023", "2023", "2024", "2024", "2025", "2025"],
-    "Gender": ["Male", "Female", "Male", "Female", "Male", "Female", "Male", "Female"],
-    "Count": [4113, 2136, 7240, 3883, 9686, 5611, 16547, 10961]  # Example percentages
-}
+    df = pd.DataFrame(data)
 
-df = pd.DataFrame(data)
+    # Create pie charts in a 2x2 grid
+    fig = make_subplots(
+        rows=2, cols=2,
+        subplot_titles=("توزيع الجنس - 2022", "توزيع الجنس - 2023", "توزيع الجنس - 2024", "توزيع الجنس - 2025"),
+        specs=[[{"type": "domain"}, {"type": "domain"}], [{"type": "domain"}, {"type": "domain"}]]
+    )
 
-# Create a subplot figure with 1 row, 4 columns
-fig = make_subplots(
-    rows=2, cols=2,
-    subplot_titles=("توزيع الجنس - 2022", "توزيع الجنس - 2023", "توزيع الجنس - 2024", "توزيع الجنس - 2025"),
-    specs=[[{"type": "domain"}, {"type": "domain"}], [{"type": "domain"}, {"type": "domain"}]]
-)
+    # Add pie charts
+    for i, year in enumerate(["2022", "2023", "2024", "2025"]):
+        pie_chart = px.pie(df[df["Year"] == year], names="Gender", values="Count")
+        fig.add_trace(pie_chart.data[0], row=(i//2)+1, col=(i%2)+1)
 
-# Add pie charts to each subplot
-for i, year in enumerate(["2022", "2023", "2024", "2025"]):
-    pie_chart = px.pie(df[df["Year"] == year], names="Gender", values="Count")
-    fig.add_trace(pie_chart.data[0], row=(i//2)+1, col=(i%2)+1)
+    # Ensure only one legend
+    for trace in fig.data:
+        trace.showlegend = False
+    fig.data[-1].showlegend = True
 
-# Ensure only one legend for all charts
-for trace in fig.data:
-    trace.showlegend = False  # Hide all legends
+    # Update layout
+    fig.update_layout(
+        showlegend=True,
+        legend=dict(x=1.1, y=0.5),
+        width=1000,
+        height=400
+    )
 
-fig.data[-1].showlegend = True  # Show legend only on the last pie chart
-
-# Update layout for better positioning
-fig.update_layout(
-    showlegend=True,
-    legend=dict(x=1.1, y=0.5),  # Position legend to the right
-    width=1000,  # Adjust width to fit all charts
-    height=400
-)
-
-# Display the chart in Streamlit
-st.plotly_chart(fig, use_container_width=True)
+    # Display chart
+    st.plotly_chart(fig, use_container_width=True)
 
 # Conclusion
 st.header("📝 الخاتمة")
