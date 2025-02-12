@@ -67,8 +67,8 @@ if st.session_state.device_selected is None:
 if st.session_state.device_selected == "desktop":
     add_bg_from_local('logo.png')
 
-# if st.session_state.device_selected == "phone":
-#    add_bg_from_local('logoPhone.png')
+if st.session_state.device_selected == "phone":
+   add_bg_from_local('logoPhone.png')
 
 # Title and Subtitle
 st.title("ماراثون الرياض")
@@ -77,36 +77,55 @@ st.markdown("### 🌍هل ماراثوننا عالمي؟")
 st.write("شفنا هالسنه في ترويج كبير للماراثون")
 
 # Section 2: First Chart
-st.header("📈التصور البياني الأول")
+st.header("🙇‍♂️🙇‍♀️ كيف توزع الجنسين للمشاركين؟") 
 
-# Sample data for gender distribution over the years
-GenderDist = {
-    "Year": ["2022", "2022", "2023", "2023", "2024", "2024", "2025", "2025"],
-    "Gender": ["Male", "Female", "Male", "Female", "Male", "Female", "Male", "Female"],
-    "Count": [4113, 2136, 7240, 3883, 9686, 5611, 16547, 10961]
-}
+# Upload  marathons data over the years
 
-GenderDis = pd.DataFrame(GenderDist)
+df22 = pd.read_csv("Cleaned Data/Clean_22.csv")
+df23 = pd.read_csv("Cleaned Data/Clean_23.csv")
+df24 = pd.read_csv("Cleaned Data/Clean_24.csv")
+df25 = pd.read_csv("Cleaned Data/Clean_25.csv")
+
+# Chart 1: Gender Disterbution of Participants Over the Years
+
+# Calculate gender counts for each year
+gender_counts_22 = df22['Gender'].value_counts().reset_index()
+gender_counts_23 = df23['Gender'].value_counts().reset_index()
+gender_counts_24 = df24['Gender'].value_counts().reset_index()
+gender_counts_25 = df25['Gender'].value_counts().reset_index()
+
+# Rename columns for consistency
+gender_counts_22.columns = ['Gender', 'Count']
+gender_counts_23.columns = ['Gender', 'Count']
+gender_counts_24.columns = ['Gender', 'Count']
+gender_counts_25.columns = ['Gender', 'Count']
 
 # Create a subplot figure with 2 rows, 2 columns
-fig = make_subplots(
+GenderDisFig = make_subplots(
     rows=2, cols=2,
     subplot_titles=("توزيع الجنس - 2022", "توزيع الجنس - 2023", "توزيع الجنس - 2024", "توزيع الجنس - 2025"),
     specs=[[{"type": "domain"}, {"type": "domain"}], [{"type": "domain"}, {"type": "domain"}]]
 )
 
 # Add pie charts
-for i, year in enumerate(["2022", "2023", "2024", "2025"]):
-    pie_chart = px.pie(GenderDis[GenderDis["Year"] == year], names="Gender", values="Count")
-    fig.add_trace(pie_chart.data[0], row=(i//2)+1, col=(i%2)+1)
+for i, gender_counts in enumerate([gender_counts_22, gender_counts_23, gender_counts_24, gender_counts_25]):
+    pie_chart = px.pie(
+        gender_counts,
+        names="Gender",
+        values="Count",
+        color_discrete_sequence=["orange", "white"]
+    )
+    # Explicitly force the marker colors to orange and white.
+    pie_chart.data[0].marker.colors = ["#fe5d22", "#dcdcdc"]
+    GenderDisFig.add_trace(pie_chart.data[0], row=(i // 2) + 1, col=(i % 2) + 1)
 
 # Ensure only one legend
-for trace in fig.data:
+for trace in GenderDisFig.data:
     trace.showlegend = False
-fig.data[-1].showlegend = True
+GenderDisFig.data[-1].showlegend = True
 
 # Update layout
-fig.update_layout(
+GenderDisFig.update_layout(
     showlegend=True,
     legend=dict(x=1.1, y=0.5),
     width=1000,
@@ -114,7 +133,54 @@ fig.update_layout(
 )
 
 # Display the chart in Streamlit
-st.plotly_chart(fig, use_container_width=True)
+st.plotly_chart(GenderDisFig, use_container_width=True)
+
+# chart 2: increase in participants over the years
+
+st.header("📈 كيف زاد عدد المشاركين على مر السنين؟")
+st.write(" !!!!السنة هذي كانت نسخة أستثنائية , شفنا فيها زيادة كبيرة في عدد المشاركين لاربع أضعاف")
+st.write(":شيك على الرسمه تحت")
+
+totalPart_22 = df22.shape[0]
+totalPart_23 = df23.shape[0]
+totalPart_24 = df24.shape[0]
+totalPart_25 = df25.shape[0]
+# Create a DataFrame for total participants over the years
+total_participants = pd.DataFrame({
+    "Year": [2022, 2023, 2024, 2025],
+    "Total Participants": [totalPart_22, totalPart_23, totalPart_24, totalPart_25]
+})
+
+# Create a line chart
+line_chart = px.line(
+    total_participants,
+    x="Year",
+    y="Total Participants",
+    title="Number of the Marathon Participants Over the Years",
+    markers=True
+)
+
+# Update marker size and x-axis ticks
+line_chart.update_traces(marker=dict(size=10))
+line_chart.update_layout(
+    xaxis=dict(
+        tickmode='array',
+        tickvals=[2022, 2023, 2024, 2025]
+    )
+)
+
+# Update layout and line color
+line_chart.update_traces(line=dict(color="#fe5d22"))
+line_chart.update_layout(
+    xaxis_title="Year",
+    yaxis_title="Number of Participants",
+    width=800,
+    height=400
+)
+
+# Display the line chart in Streamlit
+st.plotly_chart(line_chart, use_container_width=True)
+
 
 # Conclusion
 st.header("واخيراً")
