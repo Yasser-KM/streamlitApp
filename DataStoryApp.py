@@ -71,16 +71,15 @@ if st.session_state.device_selected == "phone":
     st.markdown(
         """
         <style>
-        .stMarkdown {
-            background-color: white; /* White background for markdown texts */
+        .stMarkdown, .stTitle {
+            background-color: white; /* White background for markdown texts and titles */
             padding: 10px;
-            border-radius: 5px;
+            border-radius: 10px;
         }
         </style>
         """,
         unsafe_allow_html=True
     )
-
 # Title and Subtitle
 st.title("ماراثون الرياض")
 st.markdown("### 🌍هل ماراثوننا عالمي؟")
