@@ -80,6 +80,7 @@ if st.session_state.device_selected == "phone":
         """,
         unsafe_allow_html=True
     )
+    
 # Title and Subtitle
 st.title("ماراثون الرياض")
 st.markdown("### 🌍هل ماراثوننا عالمي؟")
