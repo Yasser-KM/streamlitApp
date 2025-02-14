@@ -5,7 +5,7 @@ import pandas as pd
 from plotly.subplots import make_subplots
 
 # Set Page Configurations
-st.set_page_config(page_title="ماراثون الرياض", layout="centered", )
+st.set_page_config(page_title="ماراثون الرياض", layout="centered")
 
 # Global CSS styling for the entire page
 st.markdown(
@@ -41,8 +41,6 @@ def add_bg_from_local(image_file):
         unsafe_allow_html=True
     )
 
-
-
 # Ask user to select device type before showing content
 if "device_selected" not in st.session_state:
     st.session_state.device_selected = None
@@ -68,7 +66,20 @@ if st.session_state.device_selected == "desktop":
     add_bg_from_local('logo.png')
 
 if st.session_state.device_selected == "phone":
-   add_bg_from_local('logoPhone.png')
+    add_bg_from_local('logoPhone.png')
+    # Add white background to markdown texts for phone view
+    st.markdown(
+        """
+        <style>
+        .stMarkdown {
+            background-color: white; /* White background for markdown texts */
+            padding: 10px;
+            border-radius: 5px;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
 
 # Title and Subtitle
 st.title("ماراثون الرياض")
@@ -79,15 +90,13 @@ st.write("شفنا هالسنه في ترويج كبير للماراثون")
 # Section 2: First Chart
 st.header("🙇‍♂️🙇‍♀️ كيف توزع الجنسين للمشاركين؟") 
 
-# Upload  marathons data over the years
-
+# Upload marathons data over the years
 df22 = pd.read_csv("Cleaned Data/Clean_22.csv")
 df23 = pd.read_csv("Cleaned Data/Clean_23.csv")
 df24 = pd.read_csv("Cleaned Data/Clean_24.csv")
 df25 = pd.read_csv("Cleaned Data/Clean_25.csv")
 
-# Chart 1: Gender Disterbution of Participants Over the Years
-
+# Chart 1: Gender Distribution of Participants Over the Years
 # Calculate gender counts for each year
 gender_counts_22 = df22['Gender'].value_counts().reset_index()
 gender_counts_23 = df23['Gender'].value_counts().reset_index()
@@ -135,10 +144,9 @@ GenderDisFig.update_layout(
 # Display the chart in Streamlit
 st.plotly_chart(GenderDisFig, use_container_width=True)
 
-# chart 2: increase in participants over the years
-
+# Chart 2: Increase in participants over the years
 st.header("📈 كيف زاد عدد المشاركين على مر السنين؟")
-st.write(" !!!!السنة هذي كانت نسخة أستثنائية , شفنا فيها زيادة كبيرة في عدد المشاركين لاربع أضعاف")
+st.write("!!!!السنة هذي كانت نسخة أستثنائية , شفنا فيها زيادة كبيرة في عدد المشاركين لاربع أضعاف")
 st.write(":شيك على الرسمه تحت")
 
 totalPart_22 = df22.shape[0]
@@ -180,7 +188,6 @@ line_chart.update_layout(
 
 # Display the line chart in Streamlit
 st.plotly_chart(line_chart, use_container_width=True)
-
 
 # Conclusion
 st.header("واخيراً")
