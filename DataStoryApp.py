@@ -67,20 +67,30 @@ if st.session_state.device_selected == "desktop":
 
 if st.session_state.device_selected == "phone":
     add_bg_from_local('logoPhone.png')
-    # Add white background to markdown texts for phone view
+    # Add white background to markdown texts and title for phone view
     st.markdown(
         """
         <style>
-        .stMarkdown, .stTitle {
-            background-color: white; /* White background for markdown texts and titles */
+        .stMarkdown {
+            background-color: #b3b4b5; /* White background for markdown texts */
             padding: 10px;
             border-radius: 10px;
+        }
+        h1 {
+            background-color: white; /* White background for title */
+            padding: 10px;
+            border-radius: 5px;
+        }
+        /* Remove the three lines above the title */
+        .stApp > header {
+            background-color: transparent !important;
+            box-shadow: none !important;
         }
         </style>
         """,
         unsafe_allow_html=True
     )
-    
+
 # Title and Subtitle
 st.title("ماراثون الرياض")
 st.markdown("### 🌍هل ماراثوننا عالمي؟")
