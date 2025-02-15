@@ -1,4 +1,4 @@
-Race Type,Gender,Bib,Nationality Code,Rank,Gun Time,Chip Time,Pace min/km,Speed Km/Hr,Status,Chip Time duration-min,Gun Time duration-min
+Race Type,Gender,Bib,Nationality,Rank,Gun Time,Chip Time,Pace min/km,Speed Km/Hr,Status,Chip Time duration-min,Gun Time duration-min
 Marathon Elite,Female,26,ETH,1,0 days 02:24:30,0 days 02:24:29,3.4,17.6,Finished,144.48,144.5
 Marathon Elite,Female,27,ETH,2,0 days 02:24:59,0 days 02:24:58,3.43,17.5,Finished,144.97,144.98
 Marathon Elite,Female,30,ETH,3,0 days 02:26:18,0 days 02:26:16,3.45,17.4,Finished,146.27,146.3

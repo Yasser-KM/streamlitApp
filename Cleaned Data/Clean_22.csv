@@ -1,4 +1,4 @@
-Race Type,Gender,Nationality Flag,Gun Time,Rank,Gender Rank,Chip Time,Speed (Km/Hr),Pace (min/km),Distance Covered,Rank Total,Gender Rank Total,Status,Chip Time duration-min,Gun Time duration-min
+Race Type,Gender,Nationality,Gun Time,Rank,Gender Rank,Chip Time,Speed (Km/Hr),Pace (min/km),Distance Covered,Rank Total,Gender Rank Total,Status,Chip Time duration-min,Gun Time duration-min
 10KM RUN,Female,SA,0 days 00:42:59.556000,46,1,0 days 00:42:57.505000,13.9,4.28,10.0,2293,762,Finished,42.96,42.99
 10KM RUN,Female,CZ,0 days 00:43:28.175000,53,2,0 days 00:43:24.774000,13.8,4.33,10.0,2293,762,Finished,43.41,43.47
 10KM RUN,Female,SA,0 days 00:44:00.251000,55,3,0 days 00:43:56.317000,13.6,4.38,10.0,2293,762,Finished,43.94,44.0
